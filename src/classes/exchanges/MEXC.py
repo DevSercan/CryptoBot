@@ -1,5 +1,5 @@
-from src.classes.IExchange import IExchange
-from src.classes.Log import Log
+from src.interfaces import IExchange
+from src.classes import Log
 import ccxt
 
 log = Log()

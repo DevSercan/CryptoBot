@@ -1,4 +1,4 @@
-from src.classes.IExchange import IExchange
+from src.interfaces import IExchange
 
 class TradingBot:
     def __init__(self, exchange: IExchange):

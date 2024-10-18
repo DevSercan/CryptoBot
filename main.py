@@ -1,8 +1,6 @@
 from src.utils.helper import getConfig, clear, getLanguage, getAPIKeys
-from src.classes.Color import Color # Konsolda renkli yazı yazma özelliği sunar.
-from src.classes.Log import Log # Günlük tutma (Loglama) işlemleri için kullanılan sınıfı içe aktarıyoruz.
-from src.classes.MEXC import MEXC
-from src.classes.TradingBot import TradingBot
+from src.classes import Color, Log, TradingBot
+from src.classes.exchanges import MEXC
 
 log = Log() # Log sınıfını nesne olarak tutar.
 CONFIG = getConfig()

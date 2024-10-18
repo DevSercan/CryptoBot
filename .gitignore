@@ -1,0 +1,5 @@
+# .gitignore
+/keys.json
+/logs/
+/src/database/*
+__pycache__/

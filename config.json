@@ -1,0 +1,12 @@
+{
+    "logging": {
+        "minimumLevel": 5,
+        "path": "logs/",
+        "fileSizeLimitMegabytes": 6,
+        "printLogsToConsole": 0
+    },
+
+    "language": "tr",
+
+    "databasePath": "src/database/database.db"
+}

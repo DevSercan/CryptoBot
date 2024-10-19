@@ -3,7 +3,7 @@
         "minimumLevel": 5,
         "path": "logs/",
         "fileSizeLimitMegabytes": 6,
-        "printLogsToConsole": 0
+        "printLogsToConsole": 1
     },
 
     "language": "tr",

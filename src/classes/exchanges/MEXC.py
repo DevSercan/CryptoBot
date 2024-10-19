@@ -20,6 +20,15 @@ class MEXC(IExchange):
             self.mexc.nonce = lambda: serverTime # Zaman farkını eşitliyor
         except Exception as e:
             log.error(f"Unexpected error in '__init__' function of the 'MEXC' class:\n{e}")
+    
+    def checkKeys(self) -> bool:
+        try:
+            log.debug("The 'checkKeys' function of the 'MEXC' class has been executed.")
+            self.mexc.fetch_balance()
+            return True
+        except Exception as e:
+            log.error(f"Unexpected error in 'checkKeys' function of the 'MEXC' class:\n{e}")
+            return False
 
     def getBalance(self):
         try:
@@ -32,7 +41,7 @@ class MEXC(IExchange):
             log.error(f"Unexpected error in 'getBalance' function of the 'MEXC' class:\n{e}")
             return None
 
-    def getPrice(self, symbol: str):
+    def getPrice(self, symbol:str):
         """ Belirli bir sembol için son fiyatı döndürür. """
         try:
             log.debug("The 'getPrice' function of the 'MEXC' class has been executed.")
@@ -43,7 +52,7 @@ class MEXC(IExchange):
             log.error(f"Unexpected error in 'getPrice' function of the 'MEXC' class:\n{e}")
             return None
 
-    def buy(self, symbol: str, amount: float):
+    def buy(self, symbol:str, amount:float):
         """ Market alım işlemi gerçekleştirir. """
         try:
             log.debug("The 'buy' function of the 'MEXC' class has been executed.")
@@ -53,12 +62,38 @@ class MEXC(IExchange):
             log.error(f"Unexpected error in 'buy' function of the 'MEXC' class:\n{e}")
             return None
 
-    def sell(self, symbol: str, amount: float):
+    def sell(self, symbol:str, amount:float):
         """ Market satış işlemi gerçekleştirir. """
         try:
             log.debug("The 'sell' function of the 'MEXC' class has been executed.")
             order = self.mexc.create_market_sell_order(symbol, amount)
             return order
+        except ccxt.BaseError as e:
+            errorMessage = e.args[0]
+            if "code" in errorMessage and "symbol not support api" in errorMessage:
+                log.error(f"The symbol '{symbol}' is not supported by MEXC API.")
+            else:
+                log.error(f"Unexpected error in 'sell' function of the 'MEXC' class:\n{e}")
+            return None
         except Exception as e:
             log.error(f"Unexpected error in 'sell' function of the 'MEXC' class:\n{e}")
+            return None
+    
+    def getSymbolList(self) -> list:
+        """ Borsada desteklenen sembolleri liste olarak döndürür. """
+        try:
+            log.debug("The 'getSymbolList' function of the 'MEXC' class has been executed.")
+            symbolList = self.mexc.symbols
+            return symbolList
+        except Exception as e:
+            log.error(f"Unexpected error in 'getSymbolList' function of the 'MEXC' class:\n{e}")
+            return None
+    
+    def getMinimumPrice(self, symbol:str) -> float:
+        """ Minimum miktar bilgisini döndürür. """
+        try:
+            log.debug("The 'getMinimumPrice' function of the 'MEXC' class has been executed.")
+            return 1 / self.getPrice(symbol)
+        except Exception as e:
+            log.error(f"Unexpected error in 'getMinimumPrice' function of the 'MEXC' class:\n{e}")
             return None

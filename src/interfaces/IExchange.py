@@ -2,6 +2,10 @@ from abc import ABC, abstractmethod
 
 class IExchange(ABC):
     @abstractmethod
+    def checkKeys(self) -> bool:
+        pass
+
+    @abstractmethod
     def getBalance(self) -> dict:
         pass
 
@@ -15,4 +19,12 @@ class IExchange(ABC):
 
     @abstractmethod
     def sell(self, symbol: str, amount: float):
+        pass
+
+    @abstractmethod
+    def getSymbolList(self):
+        pass
+
+    @abstractmethod
+    def getMinimumPrice(self) -> float:
         pass

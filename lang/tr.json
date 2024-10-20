@@ -1,3 +1,9 @@
 {
-    "enterToExit": "Kapatmak için Enter'a basın..."
+    "enterToExit": "Kapatmak için Enter'a basın...",
+    "invalidApiKeys": "API Anahtarları geçersiz!",
+    "enterTransactionNumber": "Yapmak istediğiniz işlemin numarasını giriniz.",
+    "transactionNumber": "İşlem Numarası",
+    "invalidTransactionNumber": "Girilen işlem numarası geçersiz!",
+    "buyCryptocurrency": "Kripto Para Al",
+    "sellCryptocurrency": "Kripto Para Sat"
 }

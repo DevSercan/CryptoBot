@@ -1,5 +1,5 @@
-import time # 'Zaman bilgisi ve Yazılımı bekletme' işlemleri için kullanıyoruz.
-import traceback # Hata ayıklama için mevcut hata detaylarını gösterir.
+import time # Used for 'time information and delaying the software' operations.
+import traceback # Displays current error details for debugging.
 import os
 from src.utils.helper import getConfig
 
@@ -9,10 +9,10 @@ LEVEL = int(CONFIG["logging"]["minimumLevel"])
 SIZE = int(CONFIG["logging"]["fileSizeLimitMegabytes"])
 PRINTCONSOLE = bool(CONFIG["logging"]["printLogsToConsole"])
 
-# Konsol yazılarını renklendirebilmek için kullanılan sınıf
 class Log:
-    # Log kayıtları için kullanılan fonksiyon
+    """ A class used to colorize console outputs. """
     def __init__(self, printConsole:bool=PRINTCONSOLE, logFolder:str=PATH, logLevel:int=LEVEL, maxFileSizeMB:int=SIZE):
+        """ Function used for log entries. """
         if not 1 <= logLevel <= 5:
             raise ValueError("'logLevel' value must be between 1 and 5.")
         self.printConsole = printConsole
@@ -28,25 +28,25 @@ class Log:
             if level <= self.logLevel:
                 filePath = self._getLastLogFile()
                 if os.path.exists(filePath):
-                    currentSize = os.path.getsize(filePath) / (1024*1024) # Dosya boyutunu MB cinsinden alır.
-                    if currentSize > self.maxFileSizeMB: # Dosya boyutu, hedef boyuttan fazla ise yeni bir Log dosyası oluşturur.
+                    currentSize = os.path.getsize(filePath) / (1024*1024) # Retrieves file size in MB.
+                    if currentSize > self.maxFileSizeMB: # If the file size exceeds the target size, creates a new log file.
                         self.createLogFile()
                     del currentSize
-                logTime = time.strftime("[%d.%m.%Y %H:%M:%S]") # Mevcut zamanı 'gün.ay.yıl saat:dakika:saniye' formatında String olarak bir değişkende tutar.
+                logTime = time.strftime("[%d.%m.%Y %H:%M:%S]") # Stores the current time as a string in the format 'day.month.year hour:minute:second'.
                 logText = f"{logTime} {self.levelTags[level]} {message}"
-                if self.printConsole and level != 5: # Log kayıtlarını konsole yazdırma seçeneği True ise VE yazdırılacak log mesajının seviyesi Debug değil ise koşul sağlanır.
-                    print(logText) # Log kaydını konsole yazdırır.
-                with open(filePath, "a", encoding="utf-8") as file: # Dosya mevcut ise içerisine ekleme yapar. Mevcut değil ise oluşturur.
+                if self.printConsole and level != 5: # Condition is met if the option to print log entries to the console is True AND the log message level to be printed is not Debug.
+                    print(logText) # Prints the log entry to the console.
+                with open(filePath, "a", encoding="utf-8") as file: # Appends to the file if it exists. If not, creates it.
                     file.write(f"{logText}\n")
                 del logTime, logText
         except Exception as e:
-            errorName = type(e).__name__ # Yakalanan hatanın adını String olarak alır.
+            errorName = type(e).__name__ # Retrieves the name of the caught error as a string.
             errorMessage = f"[{errorName}]\n{traceback.format_exc()}"
             with open(filePath, "a", encoding="utf-8") as file:
                 file.write(f"LogError: {errorMessage}\n")
     
     def createLogFile(self) -> str:
-        fileName = time.strftime("log_%d%m%Y-%H%M%S.log") # Dosya adını 'log_günAyYıl-SaatDakika.log' olarak tutar.
+        fileName = time.strftime("log_%d%m%Y-%H%M%S.log") # Stores the file name as 'log_dayMonthYear-HourMinute.log'.
         filePath = os.path.join(self.logFolder, fileName)
         with open(filePath, "w", encoding="utf-8") as file:
             file.write("")
@@ -63,22 +63,22 @@ class Log:
         del fullLogPaths
         return lastLogFile
 
-    # Kritik düzeyde loglamalar için kullanılır.
     def critical(self, message:str):
+        """ Used for logging at a critical level. """
         self._log(message, 1)
 
-    # Hata düzeyinde loglamalar için kullanılır.
     def error(self, message:str):
+        """ Used for logging at an error level. """
         self._log(message, 2)
 
-    # Uyarı düzeyinde loglamalar için kullanılır.
     def warning(self, message:str):
+        """ Used for logging at a warning level. """
         self._log(message, 3)
 
-    # Bilgi düzeyinde loglamalar için kullanılır.
     def info(self, message:str):
+        """ Used for logging at an information level. """
         self._log(message, 4)
 
-    # Geliştirme (debug) düzeyinde loglamalar için kullanılır. Kod detaylarını içerir.
     def debug(self, message:str):
+        """ Used for logging at a debug level. Contains code details. """
         self._log(message, 5)

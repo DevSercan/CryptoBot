@@ -10,7 +10,7 @@ class IExchange(ABC):
         pass
 
     @abstractmethod
-    def getPrice(self, symbol: str):
+    def getPrice(self, symbol: str) -> float:
         pass
 
     @abstractmethod
@@ -22,7 +22,7 @@ class IExchange(ABC):
         pass
 
     @abstractmethod
-    def getSymbolList(self):
+    def getSymbolList(self) -> list:
         pass
 
     @abstractmethod

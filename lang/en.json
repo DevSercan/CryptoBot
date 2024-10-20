@@ -1,3 +1,9 @@
 {
-    "enterToExit": "Press Enter to exit..."
+    "enterToExit": "Press Enter to exit...",
+    "invalidApiKeys": "API Keys are invalid!",
+    "enterTransactionNumber": "Enter the number of the transaction you want to perform.",
+    "transactionNumber": "Transaction Number",
+    "invalidTransactionNumber": "The entered transaction number is invalid!",
+    "buyCryptocurrency": "Buy Cryptocurrency",
+    "sellCryptocurrency": "Sell Cryptocurrency"
 }

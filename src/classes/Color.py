@@ -1,20 +1,15 @@
-# Kütüphaneler --------------------------------------
 try:
     from colorama import Fore, Style, init
     init()
-    coloramaImported = True # Import başarılı olduğu için boolean değerini True yapar.
-except: # 'Colorama' kütüphanesi Import edilirken olası hataları yakalar.
-    print("'colorama' kütüphanesi bulunmuyor! 'pip install colorama'")
-    coloramaImported = False # Import başarısız olduğu için boolean değerini False yapar. Böylece renkler boş değere atanır.
-# İşletim sistemi bilgileri için 'os' ve 'platform' kütüphaneleri gereklidir.
+    coloramaImported = True
+except:
+    coloramaImported = False
+
 import os
 import platform
-# ---------------------------------------------------
 
-# Renkli yazı özelliğini sağlayan sınıf
 class Color():
-    platforms = ['8', '10', '11'] # Windows platformlarını tutan dizi
-    # İşletim sistemi eski bir Windows platformu ise VEYA 'colorama' Import edilemediyse renkler boş değer olarak atanır.
+    platforms = ['8', '10', '11']
     if (os.name == 'nt' and platform.release() not in platforms) or (coloramaImported == False):
         black = lblack = red = lred = green = lgreen = yellow = lyellow = blue = lblue = magenta = lmagenta = cyan = lcyan = white = lwhite = reset = ''
     else:

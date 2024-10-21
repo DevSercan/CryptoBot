@@ -13,65 +13,49 @@ def printOption(number, text):
 def inputSymbol():
     symbolList = exchange.getSymbolList()
     symbolListUpper = list(map(str.upper, symbolList))
-    symbol = ""
     while True:
         try:
-            inputValue = str(input(f"\n{Color.yellow}> {LANG['pair']}: {Color.reset}"))
-            if inputValue.upper() in symbolListUpper:
-                symbol = inputValue.upper()
-                break
+            inputValue = str(input(f"\n{Color.yellow}> {LANG['pair']}: {Color.reset}")).upper()
+            if inputValue in symbolListUpper:
+                return inputValue
             else:
                 print(f"{Color.lred}{LANG['invalidPair']}{Color.reset}")
-                getCloseMatches = difflib.get_close_matches(inputValue.upper(), symbolListUpper, n=6, cutoff=0.6)
+                getCloseMatches = difflib.get_close_matches(inputValue, symbolListUpper, n=6, cutoff=0.6)
                 if getCloseMatches:
                     print(f"{Color.lcyan}{LANG['similarPairs']}: {', '.join(getCloseMatches)}{Color.reset}")
                 else:
                     print(f"{Color.lred}{LANG['noSimilarPairs']}{Color.reset}")
         except:
             print(f"{Color.lred}{LANG['invalidPair']}{Color.reset}")
-    return symbol
 
 def inputAmount():
-    amount = ""
     while True:
         try:
             inputValue = float(input(f"\n{Color.yellow}> {LANG['amount']}: {Color.reset}"))
             if inputValue < 0:
                 print(f"{Color.lred}{LANG['cantLessZero']}{Color.reset}")
             else:
-                amount = inputValue
-                break 
+                return inputValue
         except:
             print(f"{Color.lred}{LANG['invalidAmount']}{Color.reset}")
-    return amount
 
-def buyCryptocurrency():
+def executeTransaction(transactionType):
     exchange.syncExchangeTime()
-    if exchange.checkKeys():
-        symbol = inputSymbol()
-        amount = inputAmount()
-        minimumPrice = exchange.getMinimumPrice(symbol)
-        if amount < minimumPrice:
-            print(f"{Color.lred}{LANG['invalidMinAmount'].format(value=f'{minimumPrice:.20f}')}{Color.reset}")
-        else:
-            exchange.syncExchangeTime()
+    if not exchange.checkKeys():
+        return print(f"{Color.lred}{LANG['invalidApiKeys']}{Color.reset}")
+    
+    symbol = inputSymbol()
+    amount = inputAmount()
+    minimumPrice = exchange.getMinimumPrice(symbol)
+    
+    if amount < minimumPrice:
+        print(f"{Color.lred}{LANG['invalidMinAmount'].format(value=f'{minimumPrice:.20f}')}{Color.reset}")
+    else:
+        exchange.syncExchangeTime()
+        if transactionType == 'buy':
             exchange.buy(symbol, amount)
-    else:
-        print(f"{Color.lred}{LANG['invalidApiKeys']}{Color.reset}")
-
-def sellCryptocurrency():
-    exchange.syncExchangeTime()
-    if exchange.checkKeys():
-        symbol = inputSymbol()
-        amount = inputAmount()
-        minimumPrice = exchange.getMinimumPrice(symbol)
-        if amount < minimumPrice:
-            print(f"{Color.lred}{LANG['invalidMinAmount'].format(value=f'{minimumPrice:.20f}')}{Color.reset}")
-        else:
-            exchange.syncExchangeTime()
+        elif transactionType == 'sell':
             exchange.sell(symbol, amount)
-    else:
-        print(f"{Color.lred}{LANG['invalidApiKeys']}{Color.reset}")
 
 def menu():
     while True:
@@ -83,9 +67,9 @@ def menu():
             inputValue = int(input(f"\n{Color.yellow}> {LANG['transactionNumber']}: {Color.lyellow}"))
             print(Color.reset, end='\r')
             if inputValue == 1:
-                buyCryptocurrency()
+                executeTransaction('buy')
             elif inputValue == 2:
-                sellCryptocurrency()
+                executeTransaction('sell')
             else:
                 print(f"{Color.lred}{LANG['invalidTransactionNumber']}{Color.reset}")
         except:
@@ -96,11 +80,7 @@ def main():
     global exchange
     try:
         apiKeys = getAPIKeys()
-        accessKey = apiKeys["accessKey"]
-        secretKey = apiKeys["secretKey"]
-
-        exchange = MEXC(accessKey, secretKey)
-
+        exchange = MEXC(apiKeys["accessKey"], apiKeys["secretKey"])
         menu()
     except Exception as e:
         log.error(f"Unexpected error in 'main' function:\n{e}")

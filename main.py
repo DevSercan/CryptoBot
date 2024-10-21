@@ -39,7 +39,7 @@ def inputAmount():
         except:
             print(f"{Color.lred}{LANG['invalidAmount']}{Color.reset}")
 
-def executeTransaction(transactionType):
+def transactCryptocurrency(transactType):
     exchange.syncExchangeTime()
     if not exchange.checkKeys():
         return print(f"{Color.lred}{LANG['invalidApiKeys']}{Color.reset}")
@@ -52,9 +52,9 @@ def executeTransaction(transactionType):
         print(f"{Color.lred}{LANG['invalidMinAmount'].format(value=f'{minimumPrice:.20f}')}{Color.reset}")
     else:
         exchange.syncExchangeTime()
-        if transactionType == 'buy':
+        if transactType == 'buy':
             exchange.buy(symbol, amount)
-        elif transactionType == 'sell':
+        elif transactType == 'sell':
             exchange.sell(symbol, amount)
 
 def menu():
@@ -67,9 +67,9 @@ def menu():
             inputValue = int(input(f"\n{Color.yellow}> {LANG['transactionNumber']}: {Color.lyellow}"))
             print(Color.reset, end='\r')
             if inputValue == 1:
-                executeTransaction('buy')
+                transactCryptocurrency('buy')
             elif inputValue == 2:
-                executeTransaction('sell')
+                transactCryptocurrency('sell')
             else:
                 print(f"{Color.lred}{LANG['invalidTransactionNumber']}{Color.reset}")
         except:

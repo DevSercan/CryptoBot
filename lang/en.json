@@ -3,7 +3,15 @@
     "invalidApiKeys": "API Keys are invalid!",
     "enterTransactionNumber": "Enter the number of the transaction you want to perform.",
     "transactionNumber": "Transaction Number",
-    "invalidTransactionNumber": "The entered transaction number is invalid!",
+    "invalidTransactionNumber": "The entered transaction number is invalid.",
     "buyCryptocurrency": "Buy Cryptocurrency",
-    "sellCryptocurrency": "Sell Cryptocurrency"
+    "sellCryptocurrency": "Sell Cryptocurrency",
+    "pair": "Pair",
+    "invalidPair": "The entered trading pair is invalid.",
+    "amount": "Amount",
+    "invalidAmount": "The entered amount is invalid.",
+    "cantLessZero": "The entered value cannot be less than 0",
+    "invalidMinAmount": "The minimum amount must be greater than '{value}'.",
+    "similarPairs": "Trading pairs similar to the entered value",
+    "noSimilarPairs": "There is no trading pair similar to the entered value."
 }

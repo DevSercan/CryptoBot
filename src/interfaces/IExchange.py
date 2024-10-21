@@ -2,6 +2,10 @@ from abc import ABC, abstractmethod
 
 class IExchange(ABC):
     @abstractmethod
+    def syncExchangeTime(self) -> bool:
+        pass
+
+    @abstractmethod
     def checkKeys(self) -> bool:
         pass
 

@@ -13,14 +13,23 @@ class MEXC(IExchange):
                 'secret': secretKey,
                 'enableRateLimit': True, # API istek sınırlarına uyulmasını sağlar
                 'options': {
-                    'recvWindow': 10000, # 10sn Sunucu zamanı ile sistem zamanı farkını ayarlama
+                    'recvWindow': 10000, # Sunucu ile istemci arasındaki farkın kaç milisaniyeye kadar tolere edileceğini belirler.
                 },
             })
-            serverTime = self.mexc.fetch_time()
-            self.mexc.nonce = lambda: serverTime # Zaman farkını eşitliyor
         except Exception as e:
             log.error(f"Unexpected error in '__init__' function of the 'MEXC' class:\n{e}")
     
+    def syncExchangeTime(self) -> bool:
+        try:
+            log.debug("The 'syncExchangeTime' function of the 'MEXC' class has been executed.")
+            serverTime = self.mexc.fetch_time()
+            self.mexc.nonce = lambda: serverTime # Zaman farkını eşitliyor
+            self.mexc.load_time_difference() # Mexc sunucusu ile istemci arasındaki zaman farkını yükle
+            return True
+        except Exception as e:
+            log.error(f"Unexpected error in 'syncExchangeTime' function of the 'MEXC' class:\n{e}")
+            return False
+
     def checkKeys(self) -> bool:
         """ API Anahtarlarının geçerliliğini kontrol eder. """
         try:
@@ -45,7 +54,7 @@ class MEXC(IExchange):
     def getPrice(self, symbol:str) -> float:
         """ Belirli bir sembol için son fiyatı döndürür. """
         try:
-            log.debug("The 'getPrice' function of the 'MEXC' class has been executed.")
+            log.debug(f"[symbol={symbol}] The 'getPrice' function of the 'MEXC' class has been executed.")
             ticker = self.mexc.fetch_ticker(symbol)
             price = ticker['last']
             return price
@@ -56,7 +65,7 @@ class MEXC(IExchange):
     def buy(self, symbol:str, amount:float):
         """ Market alım işlemi gerçekleştirir. """
         try:
-            log.debug("The 'buy' function of the 'MEXC' class has been executed.")
+            log.debug(f"[symbol={symbol}, amount={amount}] The 'buy' function of the 'MEXC' class has been executed.")
             order = self.mexc.create_market_buy_order(symbol, amount)
             return order
         except Exception as e:
@@ -66,7 +75,7 @@ class MEXC(IExchange):
     def sell(self, symbol:str, amount:float):
         """ Market satış işlemi gerçekleştirir. """
         try:
-            log.debug("The 'sell' function of the 'MEXC' class has been executed.")
+            log.debug(f"[symbol={symbol}, amount={amount}] The 'sell' function of the 'MEXC' class has been executed.")
             order = self.mexc.create_market_sell_order(symbol, amount)
             return order
         except Exception as e:

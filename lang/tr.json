@@ -3,7 +3,15 @@
     "invalidApiKeys": "API Anahtarları geçersiz!",
     "enterTransactionNumber": "Yapmak istediğiniz işlemin numarasını giriniz.",
     "transactionNumber": "İşlem Numarası",
-    "invalidTransactionNumber": "Girilen işlem numarası geçersiz!",
+    "invalidTransactionNumber": "Girilen işlem numarası geçersiz.",
     "buyCryptocurrency": "Kripto Para Al",
-    "sellCryptocurrency": "Kripto Para Sat"
+    "sellCryptocurrency": "Kripto Para Sat",
+    "pair": "İşlem Çifti",
+    "invalidPair": "Girilen işlem çifti geçersiz.",
+    "amount": "Miktar",
+    "invalidAmount": "Girilen miktar geçersiz.",
+    "cantLessZero": "Girilen değer 0'dan küçük olamaz.",
+    "invalidMinAmount": "Minimum miktar '{value}' değerinden büyük olmalıdır.",
+    "similarPairs": "Girilen değere benzer işlem çiftleri",
+    "noSimilarPairs": "Girilen değere benzer işlem çifti bulunmuyor."
 }

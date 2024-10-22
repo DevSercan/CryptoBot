@@ -20,11 +20,12 @@ class MEXC(IExchange):
             log.error(f"Unexpected error in '__init__' function of the 'MEXC' class:\n{e}")
     
     def syncExchangeTime(self) -> bool:
+        """ Sunucu ile istemci arasındaki zaman farkını yükler. Her 'recvWindow' zamanı aşıldığında bu fonksiyon kullanılmalıdır. """
         try:
             log.debug("The 'syncExchangeTime' function of the 'MEXC' class has been executed.")
             serverTime = self.mexc.fetch_time()
-            self.mexc.nonce = lambda: serverTime # Zaman farkını eşitliyor
-            self.mexc.load_time_difference() # Mexc sunucusu ile istemci arasındaki zaman farkını yükle
+            self.mexc.nonce = lambda: serverTime
+            self.mexc.load_time_difference()
             return True
         except Exception as e:
             log.error(f"Unexpected error in 'syncExchangeTime' function of the 'MEXC' class:\n{e}")
@@ -41,12 +42,11 @@ class MEXC(IExchange):
             return False
 
     def getBalance(self) -> dict:
+        """ Hesabın bakiye bilgisini döndürür. """
         try:
             log.debug("The 'getBalance' function of the 'MEXC' class has been executed.")
-            balance = self.mexc.fetch_balance()
-            spotBalance = balance['total']
-            nonZeroBalances = {currency: amount for currency, amount in spotBalance.items() if amount > 0} # Değeri 0 olmayan coinleri listeler
-            return nonZeroBalances
+            balance = self.mexc.fetch_balance()['total']
+            return balance
         except Exception as e:
             log.error(f"Unexpected error in 'getBalance' function of the 'MEXC' class:\n{e}")
             return {}
@@ -63,7 +63,7 @@ class MEXC(IExchange):
             return None
 
     def buy(self, symbol:str, amount:float):
-        """ Market alım işlemi gerçekleştirir. """
+        """ Kripto alım işlemi gerçekleştirir. """
         try:
             log.debug(f"[symbol={symbol}, amount={amount}] The 'buy' function of the 'MEXC' class has been executed.")
             order = self.mexc.create_market_buy_order(symbol, amount)
@@ -73,7 +73,7 @@ class MEXC(IExchange):
             return None
 
     def sell(self, symbol:str, amount:float):
-        """ Market satış işlemi gerçekleştirir. """
+        """ Kripto satış işlemi gerçekleştirir. """
         try:
             log.debug(f"[symbol={symbol}, amount={amount}] The 'sell' function of the 'MEXC' class has been executed.")
             order = self.mexc.create_market_sell_order(symbol, amount)
@@ -83,7 +83,7 @@ class MEXC(IExchange):
             return None
     
     def getSymbolList(self) -> list:
-        """ Borsada desteklenen sembolleri liste olarak döndürür. """
+        """ Borsada desteklenen sembolleri döndürür. """
         try:
             log.debug("The 'getSymbolList' function of the 'MEXC' class has been executed.")
             symbolList = self.mexc.symbols

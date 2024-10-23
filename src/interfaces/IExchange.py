@@ -14,15 +14,15 @@ class IExchange(ABC):
         pass
 
     @abstractmethod
-    def getPrice(self, symbol: str) -> float:
+    def getPrice(self, symbol:str) -> float:
         pass
 
     @abstractmethod
-    def buy(self, symbol: str, amount: float):
+    def buy(self, symbol:str, amount:float):
         pass
 
     @abstractmethod
-    def sell(self, symbol: str, amount: float):
+    def sell(self, symbol:str, amount:float):
         pass
 
     @abstractmethod
@@ -31,4 +31,8 @@ class IExchange(ABC):
 
     @abstractmethod
     def getMinimumPrice(self) -> float:
+        pass
+
+    @abstractmethod
+    def getOrderStatus(self, order:dict) -> str:
         pass

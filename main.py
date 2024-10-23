@@ -53,9 +53,30 @@ def transactCryptocurrency(transactType):
     else:
         exchange.syncExchangeTime()
         if transactType == 'buy':
-            exchange.buy(symbol, amount)
+            order = exchange.buy(symbol, amount)
         elif transactType == 'sell':
-            exchange.sell(symbol, amount)
+            order = exchange.sell(symbol, amount)
+        if order:
+            exchange.syncExchangeTime()
+            orderStatus = exchange.getOrderStatus(order)
+            if orderStatus == 'closed':
+                print(f"{Color.lgreen}{LANG['transactionOrderSuccess']}{Color.reset}")
+            elif orderStatus == 'open':
+                print(f"{Color.lyellow}{LANG['transactionOrderInProgress']}{Color.reset}")
+            else:
+                print(f"{Color.lred}{LANG['transactionOrderFailed']}{Color.reset}")
+        else:
+            print(f"{Color.lred}{LANG['transactionOrderFailed']}{Color.reset}")
+
+def fetchWalletInfo():
+    exchange.syncExchangeTime()
+    balance = exchange.getBalance()
+    if balance:
+        print(f"{Color.lyellow}----- {LANG['walletInformation']} -----{Color.reset}")
+        for symbol, amount in balance.items():
+            print(f"{Color.lyellow}{LANG['cryptocurrency']}{Color.reset}: {symbol} {Color.lblack}|{Color.lyellow} {LANG['amount']}{Color.reset}: {amount}")
+    else:
+        print(f"{Color.lred}{LANG['fetchWalletInfoFailed']}{Color.reset}")
 
 def menu():
     while True:
@@ -64,12 +85,15 @@ def menu():
             print(f"\n{Color.lblack}{LANG['enterTransactionNumber']}{Color.reset}")
             printOption(1, LANG['buyCryptocurrency'])
             printOption(2, LANG['sellCryptocurrency'])
+            printOption(3, LANG['fetchWalletInfo'])
             inputValue = int(input(f"\n{Color.yellow}> {LANG['transactionNumber']}: {Color.lyellow}"))
             print(Color.reset, end='\r')
             if inputValue == 1:
                 transactCryptocurrency('buy')
             elif inputValue == 2:
                 transactCryptocurrency('sell')
+            elif inputValue == 3:
+                fetchWalletInfo()
             else:
                 print(f"{Color.lred}{LANG['invalidTransactionNumber']}{Color.reset}")
         except:

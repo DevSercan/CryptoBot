@@ -6,12 +6,19 @@
     "invalidTransactionNumber": "Girilen işlem numarası geçersiz.",
     "buyCryptocurrency": "Kripto Para Al",
     "sellCryptocurrency": "Kripto Para Sat",
+    "fetchWalletInfo": "Cüzdan Bilgisini Getir",
+    "fetchWalletInfoFailed": "Cüzdan bilgilerine erişilemiyor. Kullanılabilir kripto paranız olmayabilir.",
+    "walletInformation": "Cüzdan Bilgisi",
     "pair": "İşlem Çifti",
     "invalidPair": "Girilen işlem çifti geçersiz.",
     "amount": "Miktar",
+    "cryptocurrency": "Kripto Para",
     "invalidAmount": "Girilen miktar geçersiz.",
     "cantLessZero": "Girilen değer 0'dan küçük olamaz.",
     "invalidMinAmount": "Minimum miktar '{value}' değerinden büyük olmalıdır.",
     "similarPairs": "Girilen değere benzer işlem çiftleri",
-    "noSimilarPairs": "Girilen değere benzer işlem çifti bulunmuyor."
+    "noSimilarPairs": "Girilen değere benzer işlem çifti bulunmuyor.",
+    "transactionOrderSuccess": "İşlem emri başarılı.",
+    "transactionOrderFailed": "İşlem emri başarısız.",
+    "transactionOrderInProgress": "İşlem emri devam ediyor..."
 }

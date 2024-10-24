@@ -64,7 +64,7 @@ def transactCryptocurrency(transactType):
             elif orderStatus == 'open':
                 print(f"{Color.lyellow}{LANG['transactionOrderInProgress']}{Color.reset}")
             else:
-                print(f"{Color.lred}{LANG['transactionOrderFailed']}{Color.reset}")
+                print(f"{Color.lred}{LANG['transactionOrderFailed']} (orderStatus: {orderStatus}){Color.reset}")
         else:
             print(f"{Color.lred}{LANG['transactionOrderFailed']}{Color.reset}")
 

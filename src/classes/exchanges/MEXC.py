@@ -1,7 +1,7 @@
 from src.interfaces import IExchange
-from src.classes import Log
+from src.classes import Color, Log
 import ccxt
-from src.utils.helper import getConfig, getLanguage, extractJsonFromText
+from src.utils.helper import extractJsonFromText, getConfig, getLanguage
 import json
 
 log = Log()
@@ -39,7 +39,8 @@ class MEXC(IExchange):
             self.mexc.load_time_difference()
             return True
         except Exception as e:
-            log.error(self.handleError(e) or f"Unexpected error in 'syncExchangeTime' function of the 'MEXC' class:\n{e}")
+            if not self.handleError(e):
+                log.error(f"Unexpected error in 'syncExchangeTime' function of the 'MEXC' class:\n{e}")
             return False
 
     def checkKeys(self) -> bool:
@@ -50,7 +51,8 @@ class MEXC(IExchange):
             self.mexc.fetch_balance()
             return True
         except Exception as e:
-            log.error(self.handleError(e) or f"Unexpected error in 'checkKeys' function of the 'MEXC' class:\n{e}")
+            if not self.handleError(e):
+                log.error(f"Unexpected error in 'checkKeys' function of the 'MEXC' class:\n{e}")
             return False
 
     def getBalance(self) -> dict:
@@ -61,7 +63,8 @@ class MEXC(IExchange):
             balance = self.mexc.fetch_balance()['total']
             return balance
         except Exception as e:
-            log.error(self.handleError(e) or f"Unexpected error in 'getBalance' function of the 'MEXC' class:\n{e}")
+            if not self.handleError(e):
+                log.error(f"Unexpected error in 'getBalance' function of the 'MEXC' class:\n{e}")
             return {}
 
     def getPrice(self, symbol:str) -> float:
@@ -73,7 +76,8 @@ class MEXC(IExchange):
             price = ticker['last']
             return price
         except Exception as e:
-            log.error(self.handleError(e) or f"Unexpected error in 'getPrice' function of the 'MEXC' class:\n{e}")
+            if not self.handleError(e):
+                log.error(f"Unexpected error in 'getPrice' function of the 'MEXC' class:\n{e}")
             return None
 
     def buy(self, symbol:str, amount:float) -> dict:
@@ -84,7 +88,8 @@ class MEXC(IExchange):
             order = self.mexc.create_market_buy_order(symbol, amount)
             return order
         except Exception as e:
-            log.error(self.handleError(e) or f"Unexpected error in 'buy' function of the 'MEXC' class:\n{e}")
+            if not self.handleError(e):
+                log.error(f"Unexpected error in 'buy' function of the 'MEXC' class:\n{e}")
             return {}
 
     def sell(self, symbol:str, amount:float) -> dict:
@@ -95,7 +100,8 @@ class MEXC(IExchange):
             order = self.mexc.create_market_sell_order(symbol, amount)
             return order
         except Exception as e:
-            log.error(self.handleError(e) or f"Unexpected error in 'sell' function of the 'MEXC' class:\n{e}")
+            if not self.handleError(e):
+                log.error(f"Unexpected error in 'sell' function of the 'MEXC' class:\n{e}")
             return {}
     
     def getSymbolList(self) -> list:
@@ -105,7 +111,8 @@ class MEXC(IExchange):
             symbolList = self.mexc.symbols
             return symbolList
         except Exception as e:
-            log.error(self.handleError(e) or f"Unexpected error in 'getSymbolList' function of the 'MEXC' class:\n{e}")
+            if not self.handleError(e):
+                log.error(f"Unexpected error in 'getSymbolList' function of the 'MEXC' class:\n{e}")
             return []
     
     def getMinimumPrice(self, symbol:str) -> float:
@@ -115,7 +122,8 @@ class MEXC(IExchange):
             self.syncExchangeTime()
             return 1 / self.getPrice(symbol)
         except Exception as e:
-            log.error(self.handleError(e) or f"Unexpected error in 'getMinimumPrice' function of the 'MEXC' class:\n{e}")
+            if not self.handleError(e):
+                log.error(f"Unexpected error in 'getMinimumPrice' function of the 'MEXC' class:\n{e}")
             return None
     
     def getOrderStatus(self, order:dict) -> str:
@@ -126,7 +134,8 @@ class MEXC(IExchange):
             orderStatus = self.mexc.fetch_order(order.get('id'), order.get('symbol')).get('status')
             return orderStatus
         except Exception as e:
-            log.error(self.handleError(e) or f"Unexpected error in 'getOrderStatus' function of the 'MEXC' class:\n{e}")
+            if not self.handleError(e):
+                log.error(f"Unexpected error in 'getOrderStatus' function of the 'MEXC' class:\n{e}")
             return None
     
     def handleError(self, error:Exception) -> str:
@@ -136,9 +145,10 @@ class MEXC(IExchange):
             except json.decoder.JSONDecodeError:
                 errorData = extractJsonFromText(error.args[0])
                 errorData = json.loads(errorData) if errorData else None
-
             if errorData:
-                return self.errorMap.get(errorData.get("code"))
+                errorMessage = self.errorMap.get(errorData.get("code"))
+                print(f"{Color.lred}{errorMessage}{Color.reset}")
+                return errorMessage
             return None
         except Exception as e:
             log.error(f"Unexpected error in 'handleError' function of the 'MEXC' class:\n{e}")

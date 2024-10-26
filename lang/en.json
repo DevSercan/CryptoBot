@@ -20,5 +20,10 @@
     "noSimilarPairs": "There is no trading pair similar to the entered value.",
     "transactionOrderSuccess": "Transaction order successful.",
     "transactionOrderFailed": "Transaction order failed.",
-    "transactionOrderInProgress": "Transaction order is in progress..."
+    "transactionOrderInProgress": "Transaction order is in progress...",
+    "amountCantLessZero": "Amount can not be less than zero.",
+    "symbolNotSupportAPI": "Symbol not support API.",
+    "oversold": "Oversold.",
+    "minTransactionVolumeBelowThreshold": "Minimum transaction volume is below the threshold.",
+    "ipNotInWhiteList": "Your ip address not in the white list."
 }

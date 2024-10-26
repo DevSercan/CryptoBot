@@ -20,5 +20,10 @@
     "noSimilarPairs": "Girilen değere benzer işlem çifti bulunmuyor.",
     "transactionOrderSuccess": "İşlem emri başarılı.",
     "transactionOrderFailed": "İşlem emri başarısız.",
-    "transactionOrderInProgress": "İşlem emri devam ediyor..."
+    "transactionOrderInProgress": "İşlem emri devam ediyor...",
+    "amountCantLessZero": "Miktar, sıfırdan az olamaz.",
+    "symbolNotSupportAPI": "Sembol, API hizmetini desteklemiyor.",
+    "oversold": "Aşırı satılmış.",
+    "minTransactionVolumeBelowThreshold": "Minimum işlem hacmi, eşiğin altında olamaz.",
+    "ipNotInWhiteList": "IP Adresiniz erişim listesinde yer almıyor."
 }

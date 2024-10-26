@@ -40,7 +40,6 @@ def inputAmount():
             print(f"{Color.lred}{LANG['invalidAmount']}{Color.reset}")
 
 def transactCryptocurrency(transactType):
-    exchange.syncExchangeTime()
     if not exchange.checkKeys():
         return print(f"{Color.lred}{LANG['invalidApiKeys']}{Color.reset}")
     
@@ -51,13 +50,11 @@ def transactCryptocurrency(transactType):
     if amount < minimumPrice:
         print(f"{Color.lred}{LANG['invalidMinAmount'].format(value=f'{minimumPrice:.20f}')}{Color.reset}")
     else:
-        exchange.syncExchangeTime()
         if transactType == 'buy':
             order = exchange.buy(symbol, amount)
         elif transactType == 'sell':
             order = exchange.sell(symbol, amount)
         if order:
-            exchange.syncExchangeTime()
             orderStatus = exchange.getOrderStatus(order)
             if orderStatus == 'closed':
                 print(f"{Color.lgreen}{LANG['transactionOrderSuccess']}{Color.reset}")
@@ -69,7 +66,6 @@ def transactCryptocurrency(transactType):
             print(f"{Color.lred}{LANG['transactionOrderFailed']}{Color.reset}")
 
 def fetchWalletInfo():
-    exchange.syncExchangeTime()
     balance = exchange.getBalance()
     if balance:
         print(f"{Color.lyellow}----- {LANG['walletInformation']} -----{Color.reset}")

@@ -1,5 +1,6 @@
 import json # Json formatında işlemler gerçekleştirebilmek için kullanılır.
 import os # İşletim sistemi (Operating System) işlemleri için kullanılır.
+import re # Regular Expression
 
 def getConfig() -> dict:
     """ Konfigürasyon dosya içeriğini Json formatında okur ve sözlük olarak döndürür. """
@@ -28,6 +29,13 @@ def getAPIKeys() -> dict:
     with open(filePath, 'r', encoding='utf-8') as file:
         apiKeysDict = json.load(file)
     return apiKeysDict
+
+def extractJsonFromText(text:str) -> str:
+    match = re.search(r'\{.*\}', text)
+    if match:
+        return match.group(0)
+    else:
+        return None
 
 def clear():
     """ Konsolu temizler. """

@@ -25,7 +25,9 @@ class MEXC(IExchange):
                 10007: LANG['symbolNotSupportAPI'],
                 30005: LANG['oversold'],
                 30002: LANG['minTransactionVolumeBelowThreshold'],
+                30029: LANG['maxOrderLimitExceeded'],
                 700006: LANG['ipNotInWhiteList'],
+                700007: LANG['noPermission']
             }
         except Exception as e:
             log.error(f"Unexpected error in '__init__' function of the 'MEXC' class:\n{e}")
@@ -147,7 +149,8 @@ class MEXC(IExchange):
                 errorData = json.loads(errorData) if errorData else None
             if errorData:
                 errorMessage = self.errorMap.get(errorData.get("code"))
-                print(f"{Color.lred}{errorMessage}{Color.reset}")
+                if errorMessage:
+                    print(f"{Color.lred}{errorMessage}{Color.reset}")
                 return errorMessage
             return None
         except Exception as e:

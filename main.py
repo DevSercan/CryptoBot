@@ -79,12 +79,15 @@ def menu():
         try:
             print(f"{Color.yellow}--------------------------------------------------{Color.reset}")
             print(f"\n{Color.lblack}{LANG['enterTransactionNumber']}{Color.reset}")
+            printOption(0, LANG['clearConsole'])
             printOption(1, LANG['buyCryptocurrency'])
             printOption(2, LANG['sellCryptocurrency'])
             printOption(3, LANG['fetchWalletInfo'])
             inputValue = int(input(f"\n{Color.yellow}> {LANG['transactionNumber']}: {Color.lyellow}"))
             print(Color.reset, end='\r')
-            if inputValue == 1:
+            if inputValue == 0:
+                clear()
+            elif inputValue == 1:
                 transactCryptocurrency('buy')
             elif inputValue == 2:
                 transactCryptocurrency('sell')

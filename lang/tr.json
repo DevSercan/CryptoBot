@@ -25,5 +25,8 @@
     "symbolNotSupportAPI": "Sembol, API hizmetini desteklemiyor.",
     "oversold": "Aşırı satılmış.",
     "minTransactionVolumeBelowThreshold": "Minimum işlem hacmi, eşiğin altında olamaz.",
-    "ipNotInWhiteList": "IP Adresiniz erişim listesinde yer almıyor."
+    "ipNotInWhiteList": "IP Adresiniz erişim listesinde yer almıyor.",
+    "noPermission": "Bu işlemi gerçekleştirmek için yetkiniz bulunmuyor.",
+    "clearConsole": "Konsolu Temizle",
+    "maxOrderLimitExceeded": "Maksimum açık emir limiti aşılamaz."
 }

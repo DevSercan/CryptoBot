@@ -25,5 +25,8 @@
     "symbolNotSupportAPI": "Symbol not support API.",
     "oversold": "Oversold.",
     "minTransactionVolumeBelowThreshold": "Minimum transaction volume is below the threshold.",
-    "ipNotInWhiteList": "Your ip address not in the white list."
+    "ipNotInWhiteList": "Your ip address not in the white list.",
+    "noPermission": "No permission to access the endpoint.",
+    "clearConsole": "Clear Console",
+    "maxOrderLimitExceeded": "Cannot exceed the maximum open order limit."
 }

@@ -23,6 +23,7 @@ class MEXC(IExchange):
             self.errorMap = {
                 400: LANG['amountCantLessZero'],
                 10007: LANG['symbolNotSupportAPI'],
+                10072: LANG['invalidApiKeys'],
                 30005: LANG['oversold'],
                 30002: LANG['minTransactionVolumeBelowThreshold'],
                 30029: LANG['maxOrderLimitExceeded'],

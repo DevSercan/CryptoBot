@@ -3,51 +3,57 @@
 
 # CryptoBot
 
-Bu proje, 'ccxt' kütüphanesini kullanarak kripto para işlemlerini kolaylaştırmak için geliştirilmiştir.
+This project was developed to facilitate cryptocurrency transactions using the **ccxt** library.
 
 ---
 
-### Gereksinimler
+## Languages
+- [Turkish](README_TR.md)
+- [English](README.md)
+
+---
+
+### Requirements
 - Python 3.x
-- `ccxt` kütüphanesi (Kurulum yönergeleri aşağıda belirtilmiştir)
+- `ccxt` library (Installation instructions are given below)
 
-### API Anahtarı Nasıl Alınır?
-MEXC borsasında API anahtarı almak için aşağıdaki adımları takip edin:
-  1. [mexc.com](https://www.mexc.com/tr-TR/user/openapi) adresinden profilinize giriş yapın.
-  2. **API Yönetimi** sayfasını açın.
-  3. **Yeni API Anahtarı Oluştur** seçeneğini kullanarak, gerekli yetkileri belirleyin ve API anahtarınızı oluşturun.
+### How to Get an API Key?
+To get an API key on the MEXC exchange, follow the steps below:
+  1. Log in to your profile at [mexc.com](https://www.mexc.com/).
+  2. Open the **API Management** page.
+  3. Using the **Create New API Key** option, specify the required permissions and create your API key.
 
-### API Anahtarını Yapılandırma
-1. Proje kök dizininde bulunan `keys.json` dosyasını açın.
-2. `keys.json` dosyasına aldığınız API anahtarını şu şekilde ekleyin:
+### Configuring the API Key
+1. Open the `keys.json` file located in the project root directory.
+2. Add the API key you received to the `keys.json` file as follows:
    ```json
    {
        "accessKey": "YOUR_API_KEY",
        "secretKey": "YOUR_API_SECRET"
    }
-> Not: API anahtarınızın güvenliğini sağlamak için keys.json dosyasını güvenli bir ortamda saklayın ve bu dosyayı paylaşmayın.
+> Note: To ensure the security of your API key, store the `keys.json` file in a secure environment and do not share this file.
 
 ---
 
-### Kurulum
-1. **Python Yüklü Sistemler İçin**  
-   Python bilgisayarınızda yüklü ise, öncelikle `requirements.txt` dosyasındaki bağımlılıkları yüklemeniz gerekmektedir. Bağımlılıkları yüklemek için kök dizinde bir terminal açın ve `pip install -r requirements.txt` komutunu girin. Kurulum işlemini tamamladıktan sonra `main.py` dosyasını çalıştırarak yazılımı başlatabilirsiniz.
+### Setup
+1. **For Systems with Python Installed**
+   If Python is installed on your computer, you first need to install the dependencies listed in the `requirements.txt` file. To install them, open a terminal in the root directory and enter the command `pip install -r requirements.txt`. Once the setup is complete, you can start the software by running the `main.py` file.
    
-2. **Python Yüklü Olmayan Sistemler İçin**  
-   Python yüklü değilse, doğrudan `main.exe` uygulamasını çalıştırarak programı başlatabilirsiniz.
+2. **For Systems without Python Installed**
+   If Python is not installed, you can start the program directly by running the `main.exe` application.
 
 ---
 
-### Kullanım
-Yazılım, konsol arayüzünden kullanıcı etkileşimi ile çalışmaktadır. Aşağıdaki komut numaraları ile işlevlere erişebilirsiniz:
-- 0: Konsolu temizler.
+### Usage
+The software operates via a console interface for user interaction. You can access functions using the following command numbers:
+- 0: Clears the console.
 
-- 1: Kripto para alım işlemini başlatır.
-  - İşlem Çifti: İşlem yapmak istediğiniz çift, örneğin BTC/USDC.
-  - Miktar: Almak istediğiniz miktarı girin. Ondalık sayı girecekseniz nokta kullanın, örneğin 0.14.
+- 1: Initiates a cryptocurrency purchase transaction.
+  - Trading Pair: Enter the trading pair you wish to trade, e.g., BTC/USDC.
+  - Amount: Enter the amount you wish to purchase. Use a decimal point for fractional amounts, e.g., 0.14.
 
-- 2: Kripto para satım işlemini başlatır.
-  - İşlem Çifti: Satmak istediğiniz işlem çiftini girin, örneğin BTC/USDC.
-  - Miktar: Satmak istediğiniz miktarı girin. Ondalık sayı için nokta kullanın, örneğin 0.14.
+- 2: Initiates a cryptocurrency sale transaction.
+  - Trading Pair: Enter the trading pair you wish to sell, e.g., BTC/USDC.
+  - Amount: Enter the amount you wish to sell. Use a decimal point for fractional amounts, e.g., 0.14.
 
-- 3: Mevcut bakiye bilgilerinizi görüntüler.
+- 3: Displays your current balance information.

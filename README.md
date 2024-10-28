@@ -7,7 +7,7 @@ This project was developed to facilitate cryptocurrency transactions using the *
 
 ---
 
-## Languages
+### Languages
 - [English](README.md)
 - [Turkish](README_TR.md)
 

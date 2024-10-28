@@ -7,7 +7,7 @@ Bu proje, **ccxt** kütüphanesini kullanarak kripto para işlemlerini kolaylaş
 
 ---
 
-## Diller
+### Diller
 - [English](README.md)
 - [Turkish](README_TR.md)
 
